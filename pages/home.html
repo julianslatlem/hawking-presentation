@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git & GitHub</title>
+    <link rel="icon" type="image/x-svg" href="../img/git-logo.svg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <script type="text/javascript" src="../JS/redirect.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kute.js@2.1.2/dist/kute.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- This canvas element is used for rendering custom images, and in this instance, is used as the page background. -->
+    <!-- <canvas id="backgroundCanvas"></canvas> -->
+
+    <script id="2d-fragment-shader" type="x-shader/x-fragment">// <![CDATA[
+
+        // Look below at line 23 for realism.
+        
+        #ifdef GL_ES
+        precision mediump float;
+        #endif
+        
+        #define PI 3.14159265359
+        
+        uniform sampler2D u_image;
+        varying vec2 v_texCoord;
+        
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+        uniform float u_mass;
+        uniform float u_time;
+        uniform float u_clickedTime;
+        
+        vec2 rotate(vec2 mt, vec2 st, float angle){
+            float cos = cos((angle + u_clickedTime) * PI); // try replacing * 1.0 with * PI
+            float sin = sin(angle * 0.0); // try removing the * 0.0
+            
+            // Uncomment these two lines for realism
+            //float cos = cos(angle) * (u_time * 0.3);
+            //float sin = sin(angle) * (u_time * 0.3);
+            
+            float nx = (cos * (st.x - mt.x)) + (sin * (st.y - mt.y)) + mt.x;
+            float ny = (cos * (st.y - mt.y)) - (sin * (st.x - mt.x)) + mt.y;
+            return vec2(nx, ny);
+        }
+        
+        void main() {
+             vec2 st = vec2(gl_FragCoord.x, u_resolution.y - gl_FragCoord.y)/u_resolution;
+            vec2 mt = vec2(u_mouse.x, u_resolution.y - u_mouse.y)/u_resolution;
+        
+            float dx = st.x - mt.x;
+            float dy = st.y - mt.y;
+        
+            float dist = sqrt(dx * dx + dy * dy);
+            float pull = u_mass / (dist * dist);
+            
+             vec3 color = vec3(0.0);
+            
+            vec2 r = rotate(mt,st,pull);
+            vec4 imgcolor = texture2D(u_image, r);
+            color = vec3(
+                (imgcolor.x - (pull * 0.25)),
+                (imgcolor.y - (pull * 0.25)), 
+                (imgcolor.z - (pull * 0.25))
+            );
+            
+        
+             gl_FragColor = vec4(color,1.);
+        }
+        // ]]>
+    </script>
+    <script id="2d-vertex-shader" type="x-shader/x-vertex">// <![CDATA[
+        attribute vec2 a_position;
+        attribute vec2 a_texCoord;
+        
+        varying vec2 v_texCoord;
+        void main() {
+            gl_Position = vec4(a_position, 0, 1);
+            v_texCoord = a_texCoord;
+        }
+        // ]]>
+    </script>
+
+
+
+
+
+
+    <canvas id="backgroundCanvas"></canvas>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script><script  src="./script.js"></script>
+
+    <main>
+        <div class="spacer-short"></div>
+        <div class="master-title">Stephen Hawking</div>
+        <div class="authors">By Julian Slatlem</div>
+
+        <div class="spacer-large"></div>
+
+        <div class="subtitle">Who Was He?</div>
+        <div class="text">
+            Stephen Hawking was a brilliant theoretical physicist and cosmologist.
+            <br>
+            He was born in 1942 in Oxford, England, and he's best known for his work on black holes and the theory of relativity.
+            <br>
+            Despite being diagnosed with ALS at a young age, which left him paralyzed, he continued to make significant contributions to science.
+            <br>
+            His most famous book, "A Brief History of Time," made complex scientific concepts accessible to the general public.
+            <br>
+            Hawking's work has left a big impact on our understanding of the universe, particularly in the areas of black holes and the Big Bang theory.
+        </div>
+
+        <div class="spacer-short"></div>
+
+        <button class="next-button" onclick="openPage('early-life.html')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+        </button>
+
+        <div class="spacer-short"></div>
+
+        <footer>
+            <p>&copy; 2023 Julian Slatlem. All rights served. View project on <a href="https://github.com/julianslatlem/hawking-presentation/" target="_blank">GitHub</a><br>&nbsp;</p>
+        </footer>
+    </main>
+
+    <script type="module" src="../bundles/logo-bundle.js"></script>
+
+    <nav id="navbar">
+        <ul>
+            <li><button style="color: #F1502F;" title="Introduction" onclick="openPage('home.html')">Introduction</button></li>
+            <li><button title="Early Life" onclick="openPage('early-life.html')">Early Life</button></li>
+        </ul>
+    </nav>
+
+    <script type="module" src="../JS/navbar.js"></script>
+    <script src="../JS/blackhole.js"></script>
+</body>
+</html>

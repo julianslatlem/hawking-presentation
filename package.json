@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "rollup": "^4.1.5",
+    "three": "^0.158.0"
+  }
+}
