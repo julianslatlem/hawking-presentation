@@ -2,9 +2,9 @@
 
 // var bgUrl = 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1427&q=80'
 // var bgUrl = 'https://r4.wallpaperflare.com/wallpaper/791/891/626/space-vertical-wallpaper-59d068cda16a5dcb06b7a81f307146dd.jpg'
-var bgUrl = '../img/space-background-4.jpg';
+var bgUrl = '../img/space-background-5.jpg';
 
-var blackholeMass = 500;
+var blackholeMass = 100;
 var curblackholeMass = 0;
 
 var canvas, gl; // canvas and webgl context
@@ -35,7 +35,7 @@ var clicked = false,
     clickedTime = 0;
 
 $(document).mousedown(function(){
-	clicked = true;
+	// clicked = true;
 });
 $(document).mouseup(function(){
 	clicked = false;
