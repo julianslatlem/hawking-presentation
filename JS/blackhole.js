@@ -4,7 +4,7 @@
 // var bgUrl = 'https://r4.wallpaperflare.com/wallpaper/791/891/626/space-vertical-wallpaper-59d068cda16a5dcb06b7a81f307146dd.jpg'
 var bgUrl = '../img/space-background-5.jpg';
 
-var blackholeMass = 100;
+var blackholeMass = 500;
 var curblackholeMass = 0;
 
 var canvas, gl; // canvas and webgl context
